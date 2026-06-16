@@ -1,12 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { Input } from "@/components/ui/Input";
+import { Input, PasswordInput } from "@/components/ui/Input";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { useAuth } from "@/context/AuthContext";
 
@@ -63,9 +64,19 @@ export default function LoginPage() {
               />
             </div>
             <div>
-              <label className="mb-2 block text-sm text-muted">Password</label>
-              <Input
-                type="password"
+              <div className="mb-2 flex items-center justify-between gap-3">
+                <label className="text-sm text-muted" htmlFor="password">
+                  Password
+                </label>
+                <Link
+                  href="/forgot-password"
+                  className="text-xs text-accent transition hover:text-heading"
+                >
+                  Forgot password?
+                </Link>
+              </div>
+              <PasswordInput
+                id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter password"

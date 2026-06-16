@@ -1,3 +1,8 @@
+"use client";
+
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
+
 import { cn } from "@/lib/utils";
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
@@ -11,6 +16,28 @@ export function Input({ className, ...props }: InputProps) {
       )}
       {...props}
     />
+  );
+}
+
+export function PasswordInput({ className, ...props }: InputProps) {
+  const [visible, setVisible] = useState(false);
+
+  return (
+    <div className="relative">
+      <Input
+        type={visible ? "text" : "password"}
+        className={cn("pr-11", className)}
+        {...props}
+      />
+      <button
+        type="button"
+        onClick={() => setVisible((current) => !current)}
+        className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted transition hover:text-heading"
+        aria-label={visible ? "Hide password" : "Show password"}
+      >
+        {visible ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+      </button>
+    </div>
   );
 }
 

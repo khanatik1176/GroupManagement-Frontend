@@ -204,6 +204,31 @@ export const login = (username: string, password: string) =>
     { auth: false },
   );
 
+export const requestPasswordReset = (email: string) =>
+  api.post<{ detail: string }>(
+    "/api/auth/password-reset/",
+    { email },
+    { auth: false },
+  );
+
+export const validatePasswordReset = (uid: string, token: string) =>
+  api.get<{ valid: boolean; email: string; full_name: string }>(
+    "/api/auth/password-reset/validate/",
+    { params: { uid, token }, auth: false },
+  );
+
+export const confirmPasswordReset = (data: {
+  uid: string;
+  token: string;
+  password: string;
+  password_confirm: string;
+}) =>
+  api.post<{ detail: string }>(
+    "/api/auth/password-reset/confirm/",
+    data,
+    { auth: false },
+  );
+
 export const getProfile = () => api.get<User>("/api/auth/profile/");
 export const updateProfile = (data: Partial<User>) =>
   api.patch<User>("/api/auth/profile/", data);
